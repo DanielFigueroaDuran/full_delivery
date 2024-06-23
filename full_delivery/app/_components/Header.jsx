@@ -16,7 +16,7 @@ const Header = () => {
 
             <div className="hidden md:flex border p-2 rounded-lg bg-gray-200 w-96">
                 <input type="text" className="bg-transparent outline-none w-full" />
-                <Search />
+                <Search className='text-primary' />
             </div>
             {isSignedIn
                 ?
