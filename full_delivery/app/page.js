@@ -7,13 +7,6 @@ export default function Home() {
   return (
     <div>
       <p>Daniel</p>
-      <Button>Enviar</Button>
-      <ChevronDownCircle />
-      <div>
-        <Link href="/about" className="w-10 h-10">
-          <Link2 /> About
-        </Link>
-      </div>
     </div>
   );
 }

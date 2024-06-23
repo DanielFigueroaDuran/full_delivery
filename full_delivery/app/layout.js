@@ -2,11 +2,14 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import {
   ClerkProvider,
+  SignIn,
   SignInButton,
   SignedIn,
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import Header from "./_components/Header";
+import Provider from "./Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,22 +20,23 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    // <ClerkProvider>
-    //   <html lang="en">
-    //     <body>
-    //       <SignedOut>
-    //         <SignInButton />
-    //       </SignedOut>
-    //       <SignedIn>
-    //         <UserButton />
-    //       </SignedIn>
-    //       {children}
-    //     </body>
-    //   </html>
-    // </ClerkProvider>
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          {/* <header className="flex justify-between">
+            <h1>Clover Corp</h1>
+        
+            <UserButton afterSignOutUrl="/" />
+          </header> */}
+          {/* <main className="flex justify-center items-center py-10"> */}
+          {/* <SignedOut>
+              <SignIn routing="hash" />
+            </SignedOut> */}
+          {/* <SignedIn></SignedIn> */}
+          {/* </main> */}
+
+          <Provider>{children}</Provider>
+        </body>
       </html>
     </ClerkProvider>
   );
