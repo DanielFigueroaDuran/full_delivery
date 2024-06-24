@@ -73,3 +73,50 @@ export async function getCategory() {
     console.error("Error fetching data from Hygraph:", error);
   }
 }
+
+export async function getBusiness(category) {
+  try {
+    const response = await fetch(MASTER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query:
+          `
+         query GetBusiness {
+  restaurants(where: {categories_some: {slug: "` +
+          category +
+          `"}}) {
+    aboutUe
+    address
+    banner {
+      url
+    }
+    categories {
+      name
+    }
+    id
+    name
+    restroType
+    slug
+    workingHours
+  }
+}
+        `,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    //console.log(data.data.restaurants);
+    const result = data.data.restaurants;
+    // console.log(result);
+    return result;
+  } catch (error) {
+    console.error("Error fetching data from Hygraph:", error);
+  }
+}
