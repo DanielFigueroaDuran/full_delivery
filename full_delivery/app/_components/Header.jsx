@@ -11,7 +11,9 @@ const Header = () => {
         <div className='flex justify-between items-center p-6 md:px-20 h-20 shadow-sm '>
             <div className='flex items-center gap-2'>
                 <Image src='/logoDaniel.jpg' alt='logo' width={70} height={70} className='rounded-lg' />
-                <p className='text-lg font-semibold'>Restaurant`Daniel</p>
+                <div className="text-lg font-semibold">
+                    <p><span className='text-primary' >Delivery</span> Full</p>
+                </div>
             </div>
 
             <div className="hidden md:flex border p-2 rounded-lg bg-gray-200 w-96">
