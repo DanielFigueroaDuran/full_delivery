@@ -34,11 +34,11 @@ const BusinessList = () => {
                 lg:grid-cols-4
                 gap-7 mt-3
             ">
-                {/* {
+                {
                     businessList.map((restaurants, index) => (
                         <BussinessItem key={index} business={restaurants} />
                     ))
-                } */}
+                }
             </div>
         </div>
     )

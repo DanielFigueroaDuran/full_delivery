@@ -61,9 +61,9 @@ export async function getCategory() {
       }),
     });
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+    // if (!response.ok) {
+    //   throw new Error("Network response was not ok");
+    // }
 
     const data = await response.json();
     const result = data.data.categories;
@@ -83,8 +83,7 @@ export async function getBusiness(category) {
       },
       body: JSON.stringify({
         query:
-          `
-         query GetBusiness {
+          `query GetBusiness {
   restaurants(where: {categories_some: {slug: "` +
           category +
           `"}}) {
@@ -107,14 +106,14 @@ export async function getBusiness(category) {
       }),
     });
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+    // if (!response.ok) {
+    //   throw new Error("Network response was not ok");
+    // }
 
     const data = await response.json();
     //console.log(data.data.restaurants);
-    const result = data.data.restaurants;
-    // console.log(result);
+    const result = data.data;
+    //console.log(result);
     return result;
   } catch (error) {
     console.error("Error fetching data from Hygraph:", error);
