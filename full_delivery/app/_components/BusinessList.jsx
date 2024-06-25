@@ -29,7 +29,7 @@ const BusinessList = () => {
     return (
         <div className="mt-5">
             <h2 className="font-bold text-2xl">Popular {category} Restaurants</h2>
-            <h2 className="font-bold text_primary">{businessList?.length}</h2>
+            <h2 className="font-bold text-primary">{businessList?.length} Results</h2>
 
             <div className="grid grid-cols-1 
                 sm:grid-cols-2
