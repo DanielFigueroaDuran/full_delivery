@@ -1,10 +1,14 @@
 import Image from "next/image"
+import Link from "next/link";
 import React from "react";
 
 
 const BussinessItem = ({ business }) => {
+    //console.log(business.categories[0].name)
     return (
-        <div className="p-3 hover:border rounded-xl hover:border-primary cursor-pointer hover:bg-orange-50 ">
+        <Link
+            href={'/restaurant/' + business?.slug}
+            className="p-3 hover:border rounded-xl hover:border-primary cursor-pointer hover:bg-orange-50 ">
             <Image
                 src={business.banner?.url}
                 alt={business.name}
@@ -14,7 +18,7 @@ const BussinessItem = ({ business }) => {
                 className="h-[130px] rounded-xl object-cover"
             />
 
-            <div className="mt_2">
+            <div className="mt-2">
                 <h2 className="font-bold text_lg">{business.name}</h2>
                 <div className="flex justify-between items-center">
                     <div className="flex gap-2 items-center">
@@ -29,7 +33,7 @@ const BussinessItem = ({ business }) => {
                     <h2 className="text-sm text-primary">{business.categories[0].name}</h2>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }
 

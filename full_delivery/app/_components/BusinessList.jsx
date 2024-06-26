@@ -13,17 +13,15 @@ const BusinessList = () => {
     const [businessList, setBusinessList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    const getBusinessList = (category_) => {
-        getBusiness(category_).then(resp => setBusinessList(resp?.restaurants));
-        setIsLoading(false);
-    }
-
     useEffect(() => {
         params && setCategory(params.get('category'));
         params && getBusinessList(params.get('category'));
     }, [params]);
 
-
+    const getBusinessList = (category_) => {
+        getBusiness(category_).then(resp => setBusinessList(resp?.restaurants));
+        setIsLoading(false);
+    }
     //console.log(businessList)
 
     return (
@@ -43,7 +41,7 @@ const BusinessList = () => {
                         <BussinessItem key={index} business={restaurants} />
                     ))
                     :
-                    [1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => (
+                    [1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
                         <BusinessItemSkelton key={index} />
                     ))
                 }

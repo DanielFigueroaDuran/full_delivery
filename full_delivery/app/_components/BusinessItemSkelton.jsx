@@ -1,6 +1,9 @@
 import React from 'react'
+import { getBusinessDetail } from '../_utils/GlobalApi'
 
 const BusinessItemSkelton = () => {
+    console.log(getBusinessDetail)
+
     return (
         <div>
             <div className='h-[130px] w-full bg-slate-200 rounded-xl animate-pulse'>
