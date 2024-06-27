@@ -4,6 +4,7 @@ import React from "react";
 
 
 const BussinessItem = ({ business }) => {
+
     //console.log(business.categories[0].name)
     return (
         <Link
