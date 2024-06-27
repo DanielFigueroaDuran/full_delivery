@@ -164,7 +164,7 @@ export const addToCart = async (data) => {
           data.productImage +
           `",
         productName: "` +
-          data.productName +
+          data.name +
           `"}
   ) {
     id
