@@ -9,6 +9,7 @@ const BussinessItem = ({ business }) => {
     return (
         <Link
             href={'/restaurant/' + business?.slug}
+            rel="preload"
             className="p-3 hover:border rounded-xl hover:border-primary cursor-pointer hover:bg-orange-50 ">
             <Image
                 src={business.banner?.url}

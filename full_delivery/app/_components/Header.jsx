@@ -2,7 +2,7 @@
 import React from 'react'
 import { Button } from '@/components/ui/button';
 import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs';
-import { Search } from 'lucide-react';
+import { Search, ShoppingCart } from 'lucide-react';
 import Image from "next/image";
 
 const Header = () => {
@@ -20,9 +20,16 @@ const Header = () => {
                 <input type="text" className="bg-transparent outline-none w-full" />
                 <Search className='text-primary' />
             </div>
+
             {isSignedIn
                 ?
-                <UserButton />
+                <div className='flex gap-3 items-center'>
+                    <div className="flex gap-2 items-center">
+                        <ShoppingCart />
+                        <label className='p-1 px-2 rounded-full bg-slate-200'>0</label>
+                    </div>
+                    <UserButton />
+                </div>
                 :
                 <div className='flex gap-5'>
                     <SignInButton mode='modal'>

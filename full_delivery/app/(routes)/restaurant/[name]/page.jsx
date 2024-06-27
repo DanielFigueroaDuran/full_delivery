@@ -6,7 +6,6 @@ import Intro from '../_components/Intro';
 import RestroTabs from '../_components/RestroTabs';
 
 
-
 const RestaurantDetails = () => {
 
     const param = usePathname();

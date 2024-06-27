@@ -139,3 +139,50 @@ export const getBusinessDetail = async (bussinessSlug) => {
     console.error("Error fetching data from Hygraph:", error);
   }
 };
+
+export const addToCart = async (data) => {
+  try {
+    const response = await fetch(MASTER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query:
+          `mutation AddToCart {
+  createUserCart(
+    data: {email: "` +
+          data?.email +
+          `",
+     price: ` +
+          data.price +
+          `,
+      productDescription: "` +
+          data.description +
+          `",
+       productImage: "` +
+          data.productImage +
+          `",
+        productName: "` +
+          data.productName +
+          `"}
+  ) {
+    id
+  }
+  publishManyUserCarts(to: PUBLISHED) {
+    count
+  }
+}
+ `,
+      }),
+    });
+
+    const data = await response.json();
+    //console.log(data.data.restaurants);
+    const result = data.data;
+    console.log(result);
+    //return result;
+  } catch (error) {
+    console.error("Error fetching data from Hygraph:", error);
+  }
+};
