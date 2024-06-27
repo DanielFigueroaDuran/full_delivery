@@ -20,12 +20,12 @@ const RestaurantDetails = () => {
         getBusinessDetail(restroSlug).then(resp => { setRestaurant(resp?.restaurant) })
     }
 
-    //console.log(restaurant)
+    // console.log(restaurant)
 
     return (
         <div>
             <Intro restaurant={restaurant} />
-            <RestroTabs />
+            <RestroTabs restaurant={restaurant} />
         </div>
     )
 }
