@@ -34,7 +34,7 @@ const MenuSection = ({ restaurant }) => {
         console.log(data);
         // console.log(data) aqui el email esta vacio y la imagen tambien 
         addToCart(data).then(resp => {
-            console.log(resp);
+            console.log(resp.email);
             toast('Added to Cart');
         }, (error) => {
             toast('Error while adding into the cart');

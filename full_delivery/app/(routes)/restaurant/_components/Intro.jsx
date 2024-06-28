@@ -13,7 +13,7 @@ const Intro = ({ restaurant }) => {
                         width={1000}
                         height={300}
                         alt='banner'
-                        priority
+
                         className='w-full h-[220px] object-cover rounded-xl'
                     />
                 </div>

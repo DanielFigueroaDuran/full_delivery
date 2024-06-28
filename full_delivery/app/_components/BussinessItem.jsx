@@ -27,6 +27,7 @@ const BussinessItem = ({ business }) => {
                         <Image src="/star.png" alt="star"
                             width={14}
                             height={14}
+                            className="object-cover"
                         />
                         <label className="text-gray-400 text-sm">4.5</label>
                         <h2 className="text-gray-400 text-sm">{business?.restroType[0]}</h2>
