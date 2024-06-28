@@ -1,11 +1,15 @@
+import { addToCart } from '@/app/_utils/GlobalApi';
 import { Button } from '@/components/ui/button'
+import { useUser } from '@clerk/nextjs';
 import { SquarePlus } from 'lucide-react';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
+import { toast } from 'sonner';
 
 const MenuSection = ({ restaurant }) => {
     //console.log(restaurant)
     const [menuItemList, setMenuItemList] = useState([]);
+    const { user } = useUser;
 
     //console.log(menuItemList)
 
@@ -17,6 +21,24 @@ const MenuSection = ({ restaurant }) => {
     const filterMenu = (category) => {
         const result = restaurant?.menu?.filter((item) => item.category === category)
         setMenuItemList(result[0]);
+    }
+
+    const handleAddToCart = (item) => {
+        const data = {
+            email: user?.primaryEmailAddress?.emailAddress,
+            name: item?.name,
+            description: item?.description,
+            productImage: item?.productImage?.url,
+            price: item?.price
+        }
+        console.log(data);
+        // console.log(data) aqui el email esta vacio y la imagen tambien 
+        addToCart(data).then(resp => {
+            console.log(resp);
+            toast('Added to Cart');
+        }, (error) => {
+            toast('Error while adding into the cart');
+        });
     }
     return (
         <div>
@@ -47,14 +69,16 @@ const MenuSection = ({ restaurant }) => {
                                     alt={item.name}
                                     width={120}
                                     height={120}
-                                    priority
+
                                     className='object-cover w-[120px] h-[120px] rounded-xl'
                                 />
                                 <div className='flex flex-col gap-1'>
                                     <h2 className="font-bold">{item.name}</h2>
                                     <h2>{item.price}</h2>
                                     <h2 className="text-sm text-gray-400 line-clamp-2">{item.decription}</h2>
-                                    <SquarePlus />
+                                    <SquarePlus className='cursor-pointer'
+                                        onClick={() => { handleAddToCart(item) }}
+                                    />
                                 </div>
                             </div>
                         ))

@@ -41,15 +41,21 @@ const CategoryList = () => {
                 {
                     categoryList && categoryList.map((category, index) => (
 
-                        <Link href={'?category=' + category.slug}
+                        <Link
+                            rel="preload"
+                            href={'?category=' + category.slug}
                             key={index}
                             className={`flex flex-col items-center gap-2 border p-3 rounded-xl min-w-28 hover:border-primary hover:bg-orange-50 cursor-pointer group ${selectedCategory == category.slug && 'text-primary border-primary  bg-orange-50'}`}
+                            as="valid-value"
                         >
+
+
                             <Image
                                 src={category.icon?.url}
                                 alt={category.name}
                                 width={40}
                                 height={40}
+                                priority
                                 className="rounded-full group-hover:scale-125 transition-all duration-200"
                             />
                             <h2 className="text-sm font-medium group-hover:text-primary">{category.name}</h2>

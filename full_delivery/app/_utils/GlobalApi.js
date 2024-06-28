@@ -179,9 +179,9 @@ export const addToCart = async (data) => {
 
     const data = await response.json();
     //console.log(data.data.restaurants);
-    const result = data.data;
-    console.log(result);
-    //return result;
+    const result = data;
+    //console.log(result);
+    return result;
   } catch (error) {
     console.error("Error fetching data from Hygraph:", error);
   }
