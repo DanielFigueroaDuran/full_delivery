@@ -177,10 +177,42 @@ export const addToCart = async (data) => {
       }),
     });
 
-    const data = await response.json();
-    //console.log(data.data.restaurants);
-    const result = data;
+    const result = await response.json();
     //console.log(result);
+    return result;
+  } catch (error) {
+    console.error("Error fetching data from Hygraph:", error);
+  }
+};
+
+export const getUserCart = async (userEmail) => {
+  try {
+    const response = await fetch(MASTER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query:
+          `
+           query GetUserCart {
+  userCarts(where: {
+  email: "` +
+          userEmail +
+          `"}) {
+    id
+    price
+    productDescription
+    productImage
+    productName
+  }
+}
+           `,
+      }),
+    });
+
+    const result = await response.json();
+    console.log(result);
     return result;
   } catch (error) {
     console.error("Error fetching data from Hygraph:", error);

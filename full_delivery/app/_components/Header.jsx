@@ -1,12 +1,19 @@
 "use client"
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Button } from '@/components/ui/button';
 import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs';
 import { Search, ShoppingCart } from 'lucide-react';
 import Image from "next/image";
+import { CartUpdateContext } from '../_context/CartUpdateContext';
 
 const Header = () => {
     const { user, isSignedIn } = useUser();
+    const { updateCart, setUpdateCart } = useContext(CartUpdateContext);
+
+    useEffect(() => {
+        console.log("Execute MEEEEEEEEEEEEEEEEE")
+    }, [updateCart]);
+
     return (
         <div className='flex justify-between items-center p-6 md:px-20 h-20 shadow-sm '>
             <div className='flex items-center gap-2'>

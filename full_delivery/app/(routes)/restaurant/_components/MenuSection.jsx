@@ -1,15 +1,17 @@
+import { CartUpdateContext } from '@/app/_context/CartUpdateContext';
 import { addToCart } from '@/app/_utils/GlobalApi';
 import { Button } from '@/components/ui/button'
 import { useUser } from '@clerk/nextjs';
 import { SquarePlus } from 'lucide-react';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { toast } from 'sonner';
 
 const MenuSection = ({ restaurant }) => {
     //console.log(restaurant)
     const [menuItemList, setMenuItemList] = useState([]);
     const { user } = useUser;
+    const { updateCart, setUpdateCart } = useContext(CartUpdateContext);
 
     //console.log(menuItemList)
 
@@ -24,7 +26,12 @@ const MenuSection = ({ restaurant }) => {
     }
 
     const handleAddToCart = (item) => {
+        // console.log(item?.email);
+        // console.log(item.price);
+        // console.log(item.name)
+
         const data = {
+            // email: item?.email,
             email: user?.primaryEmailAddress?.emailAddress,
             name: item?.name,
             description: item?.description,
@@ -34,7 +41,7 @@ const MenuSection = ({ restaurant }) => {
         console.log(data);
         // console.log(data) aqui el email esta vacio y la imagen tambien 
         addToCart(data).then(resp => {
-            console.log(resp.email);
+            setUpdateCart(!updateCart);
             toast('Added to Cart');
         }, (error) => {
             toast('Error while adding into the cart');
