@@ -231,3 +231,67 @@ export const getUserCart = async (userEmail) => {
     console.error("Error fetching data from Hygraph:", error);
   }
 };
+
+export const disconnectRestroFromUserCartIem = async (id) => {
+  try {
+    const response = await fetch(MASTER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query:
+          `mutation DisconnectRestaurantFrontFromCartIem {
+  updateUserCart(data: {restaurant: {disconnect: true}}, where: {id: "` +
+          id +
+          `"}) 
+  {
+    id
+  }
+  publishManyUserCarts(to: PUBLISHED) {
+    count
+  }
+}
+
+   `,
+      }),
+    });
+
+    const data = await response.json();
+    const result = data.data;
+    //console.log(data.data);
+    return result;
+  } catch (error) {
+    console.error("Error fetching data from Hygraph:", error);
+  }
+};
+
+export const deleteCartFromItem = async (id) => {
+  try {
+    const response = await fetch(MASTER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query:
+          `
+          mutation DeleteCartItem {
+  deleteUserCart(where: {id: "` +
+          id +
+          `"}) {
+    id
+  }
+}
+   `,
+      }),
+    });
+
+    const data = await response.json();
+    //const result = data.extensions.requestId;
+    //console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching data from Hygraph:", error);
+  }
+};
