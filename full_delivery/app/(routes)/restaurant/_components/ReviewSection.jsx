@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useUser } from '@clerk/nextjs';
 import { addNewReview, getRestaurantReviews } from '@/app/_utils/GlobalApi';
 import { toast } from 'sonner';
+import ReviewList from './ReviewList';
 
 const ReviewSection = ({ restaurant }) => {
     const [rating, setRating] = useState(0);
@@ -12,7 +13,7 @@ const ReviewSection = ({ restaurant }) => {
     const { user } = useUser();
     const [reviewList, setReviewList] = useState();
 
-    console.log(reviewList)
+    //console.log(reviewList)
 
     useEffect(() => {
         restaurant && getReviewList();
@@ -31,12 +32,13 @@ const ReviewSection = ({ restaurant }) => {
         addNewReview(data).then(resp => {
             console.log(resp);
             toast('Review Added!!');
+            resp && getReviewList();
         });
     }
 
     const getReviewList = () => {
         getRestaurantReviews(restaurant.slug).then(resp => {
-            console.log(resp)
+            //console.log(resp)
             setReviewList(resp?.reviews);
         })
     };
@@ -61,7 +63,7 @@ const ReviewSection = ({ restaurant }) => {
                 </Button>
             </div>
             <div className="col-span-2">
-                List of Review
+                <ReviewList reviewList={reviewList} />
             </div>
         </div>
     )
