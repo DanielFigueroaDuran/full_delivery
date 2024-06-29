@@ -1,18 +1,35 @@
 "use client"
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button';
 import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs';
 import { Search, ShoppingCart } from 'lucide-react';
 import Image from "next/image";
 import { CartUpdateContext } from '../_context/CartUpdateContext';
+import { getUserCart } from '../_utils/GlobalApi';
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import Cart from './Cart';
 
 const Header = () => {
     const { user, isSignedIn } = useUser();
     const { updateCart, setUpdateCart } = useContext(CartUpdateContext);
+    const [cart, setCart] = useState([]);
+
 
     useEffect(() => {
-        console.log("Execute MEEEEEEEEEEEEEEEEE")
-    }, [updateCart]);
+        // console.log("Execute MEEEEEEEEEEEEEEEEE")
+        user && getUserCarts();
+    }, [updateCart && user]);
+
+    const getUserCarts = () => {
+        getUserCart(user?.primaryEmailAddress?.emailAddress).then(resp => {
+            // console.log(resp);
+            setCart(resp?.userCarts);
+        });
+    }
 
     return (
         <div className='flex justify-between items-center p-6 md:px-20 h-20 shadow-sm '>
@@ -37,10 +54,20 @@ const Header = () => {
             {isSignedIn
                 ?
                 <div className='flex gap-3 items-center'>
-                    <div className="flex gap-2 items-center">
-                        <ShoppingCart />
-                        <label className='p-1 px-2 rounded-full bg-slate-200'>0</label>
-                    </div>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <div className="flex gap-2 items-center cursor-pointer">
+                                <ShoppingCart />
+                                <label className='p-1 px-2 rounded-full bg-slate-200'>
+                                    {cart?.length}
+                                </label>
+                            </div>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                            <Cart cart={cart} />
+                        </PopoverContent>
+                    </Popover>
+
                     <UserButton />
                 </div>
                 :

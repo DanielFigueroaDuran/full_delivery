@@ -131,7 +131,6 @@ export const getBusinessDetail = async (bussinessSlug) => {
     });
 
     const data = await response.json();
-    //console.log(data.data.restaurants);
     const result = data.data;
     //console.log(result);
     return result;
@@ -141,6 +140,7 @@ export const getBusinessDetail = async (bussinessSlug) => {
 };
 
 export const addToCart = async (data) => {
+  //console.log(data);
   try {
     const response = await fetch(MASTER_URL, {
       method: "POST",
@@ -165,7 +165,11 @@ export const addToCart = async (data) => {
           `",
         productName: "` +
           data.name +
-          `"}
+          `"
+           restaurant: {connect: {slug: "` +
+          data.restaurantSlug +
+          `"}}
+          }
   ) {
     id
   }
@@ -178,7 +182,8 @@ export const addToCart = async (data) => {
     });
 
     const result = await response.json();
-    //console.log(result);
+    // console.log(result);
+    const results = result;
     return result;
   } catch (error) {
     console.error("Error fetching data from Hygraph:", error);
@@ -205,14 +210,22 @@ export const getUserCart = async (userEmail) => {
     productDescription
     productImage
     productName
+        restaurant {
+      name
+      banner {
+        url
+      }
+      slug
+    }
   }
 }
            `,
       }),
     });
 
-    const result = await response.json();
-    console.log(result);
+    const data = await response.json();
+    const result = data.data;
+    //console.log(result);
     return result;
   } catch (error) {
     console.error("Error fetching data from Hygraph:", error);
