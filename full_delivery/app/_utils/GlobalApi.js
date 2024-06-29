@@ -295,3 +295,90 @@ export const deleteCartFromItem = async (id) => {
     console.error("Error fetching data from Hygraph:", error);
   }
 };
+
+export const addNewReview = async (data) => {
+  //console.log(data.email);
+  try {
+    const response = await fetch(MASTER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query:
+          `
+      mutation AddNewReview {
+  createReview(
+    data: {
+    email: "` +
+          data.email +
+          `",
+    profileImage: "` +
+          data.profileImage +
+          `",
+    reviewText: "` +
+          data.reviewText +
+          `",
+    star: ` +
+          data.star +
+          `,
+    userName: "` +
+          data.userName +
+          `",
+    restaurant: {connect: {slug: "` +
+          data.RestroSlug +
+          `"}}}
+  ) {
+    id
+  }
+  publishManyReviews(to: PUBLISHED) {
+    count
+  }
+}
+   `,
+      }),
+    });
+
+    const result = await response.json();
+    //console.log(result);
+    return result;
+  } catch (error) {
+    console.error("Error fetching data from Hygraph:", error);
+  }
+};
+
+export const getRestaurantReviews = async (slug) => {
+  console.log(slug);
+  try {
+    const response = await fetch(MASTER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query:
+          `
+          query RestaurantReviews {
+  reviews(where: {restaurant: {slug: "` +
+          slug +
+          `"}}) {
+    email
+    id
+    profileImage
+    publishedAt
+    userName
+    star
+  }
+}
+   `,
+      }),
+    });
+
+    const data = await response.json();
+    const result = data.data;
+    // console.log(data);
+    return result;
+  } catch (error) {
+    console.error("Error fetching data from Hygraph:", error);
+  }
+};

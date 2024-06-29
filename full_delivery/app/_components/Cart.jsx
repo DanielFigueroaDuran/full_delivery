@@ -18,7 +18,7 @@ const Cart = ({ cart }) => {
     }
 
     const RemoveItemFromCart = (id) => {
-        console.log(id)
+        // console.log(id)
         disconnectRestroFromUserCartIem(id).then(resp => {
             //console.log("respuesta", resp)
             if (resp) {

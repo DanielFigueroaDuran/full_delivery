@@ -1,15 +1,45 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Textarea } from "@/components/ui/textarea"
 import { Rating as ReactRating } from '@smastrom/react-rating'
 import { Button } from '@/components/ui/button';
+import { useUser } from '@clerk/nextjs';
+import { addNewReview, getRestaurantReviews } from '@/app/_utils/GlobalApi';
+import { toast } from 'sonner';
 
 const ReviewSection = ({ restaurant }) => {
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState();
+    const { user } = useUser();
+    const [reviewList, setReviewList] = useState();
+
+    console.log(reviewList)
+
+    useEffect(() => {
+        restaurant && getReviewList();
+    }, [restaurant]);
 
     const handleSubmit = () => {
+        const data = {
+            email: user?.primaryEmailAddress?.emailAddress,
+            profileImage: user?.imageUrl,
+            userName: user?.fullName,
+            star: rating,
+            reviewText: reviewText,
+            RestroSlug: restaurant.slug
+        }
 
+        addNewReview(data).then(resp => {
+            console.log(resp);
+            toast('Review Added!!');
+        });
     }
+
+    const getReviewList = () => {
+        getRestaurantReviews(restaurant.slug).then(resp => {
+            console.log(resp)
+            setReviewList(resp?.reviews);
+        })
+    };
 
     return (
         <div className='grid grid-cols-1 md:grid-cols-3 mt-10 gap-10'>
