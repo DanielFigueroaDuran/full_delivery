@@ -72,6 +72,7 @@ const Checkout = () => {
                         setIsLoading(false);
                         toast('Order Created Successfully!');
                         setUpdateCart(!updateCart);
+                        sendEmail();
                         router.replace('/confirmation');
                     }, (error) => {
                         setIsLoading(false);
@@ -82,6 +83,28 @@ const Checkout = () => {
             setIsLoading(false);
         });
     };
+
+    const sendEmail = async () => {
+        try {
+            const response = await fetch('/api/send-email', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email: user?.primaryEmailAddress?.emailAddress })
+            });
+
+            if (!response.ok) {
+                toast('Error while sending email');
+            }
+            else {
+                toast('confirmation Email Send');
+            }
+
+        } catch (error) {
+            toast('Error while sending email');
+        }
+    }
 
     return (
         <div className=''>
@@ -115,9 +138,10 @@ const Checkout = () => {
                             Payment <ArrowBigRight />
                         </Button> */}
 
-                        {/* <Button onClick={() => addToOrder()}>
-                            {isloading ? <Loader className='animate-spin' /> : '  Make Payment'}
-                        </Button> */}
+                        <Button onClick={() => sendEmail()}>
+                            {isLoading ? <Loader className='animate-spin' /> : '  Make Payment'}
+                        </Button>
+
                         {total > 5 && <PayPalButtons
                             disabled={!(username && email && address && zip) || isLoading}
                             style={{ layout: "horizontal" }}
