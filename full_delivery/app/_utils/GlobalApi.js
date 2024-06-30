@@ -388,3 +388,56 @@ export const getRestaurantReviews = async (slug) => {
     console.error("Error fetching data from Hygraph:", error);
   }
 };
+
+export const createNewOrder = async (data) => {
+  //console.log(data);
+  try {
+    const response = await fetch(MASTER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query:
+          `
+         mutation CreateNewOrder {
+  createOrder(
+    data: {
+    email: "` +
+          data.email +
+          `",
+    orderAmount: ` +
+          data.orderAmount +
+          `,
+    restaurantName: "` +
+          data.restaurantName +
+          `",
+    userName: "` +
+          data.userName +
+          `",
+    phone: "` +
+          data.phone +
+          `",
+    address: "` +
+          data.address +
+          `",
+    zipCode: "` +
+          data.zipCode +
+          `"
+    }
+  ) {
+    id
+  }
+}
+   `,
+      }),
+    });
+
+    const results = await response.json();
+    const result = results.data;
+    //console.log(result);
+    return result;
+  } catch (error) {
+    console.error("Error fetching data from Hygraph:", error);
+  }
+};

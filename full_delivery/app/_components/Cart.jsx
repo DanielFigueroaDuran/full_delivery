@@ -5,6 +5,7 @@ import React, { useContext } from 'react'
 import { deleteCartFromItem, disconnectRestroFromUserCartIem } from '../_utils/GlobalApi'
 import { CartUpdateContext } from '../_context/CartUpdateContext'
 import { toast } from 'sonner'
+import Link from 'next/link'
 
 const Cart = ({ cart }) => {
     //console.log(cart)
@@ -38,7 +39,9 @@ const Cart = ({ cart }) => {
                 <h2 className="font-bold">My Order</h2>
                 {
                     cart && cart.map((item, index) => (
-                        <div key={index} className='flex items-center justify-between gap-8'>
+                        <div key={index}
+                            className='flex items-center justify-between gap-8'
+                        >
                             <div className='flex gap-2 items-center'>
                                 <Image
                                     src={item.productImage}
@@ -59,9 +62,15 @@ const Cart = ({ cart }) => {
                     ))
                 }
 
-                <Button>
-                    Checkout €{calculateCartAmount()}
-                </Button>
+                <Link
+                    href={'/checkout?restaurant=' + cart[0]?.restaurant?.name}
+                    className='w-full'
+                >
+                    <Button className="w-full">
+                        Checkout €{calculateCartAmount()}
+                    </Button>
+                </Link>
+
             </div>
         </div>
     )
