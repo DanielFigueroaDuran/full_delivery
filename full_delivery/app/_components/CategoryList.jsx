@@ -56,7 +56,7 @@ const CategoryList = () => {
                                 width={40}
                                 height={40}
                                 priority
-                                className="rounded-full group-hover:scale-125 transition-all duration-200"
+                                className="w-[40px] h-[40px] rounded-full group-hover:scale-125 transition-all duration-200"
                             />
                             <h2 className="text-sm font-medium group-hover:text-primary">{category.name}</h2>
                         </Link>

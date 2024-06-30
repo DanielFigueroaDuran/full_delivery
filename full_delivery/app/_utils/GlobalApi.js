@@ -66,6 +66,9 @@ export const getBusiness = async (category) => {
     restroType
     slug
     workingHours
+     review {
+      star
+    }
   }
 }
         `,
@@ -124,6 +127,9 @@ export const getBusinessDetail = async (bussinessSlug) => {
           }
         }
       }
+    }
+          review {
+      star
     }
   }
 } `,
@@ -361,7 +367,7 @@ export const getRestaurantReviews = async (slug) => {
           query RestaurantReviews {
   reviews(where: {restaurant: {slug: "` +
           slug +
-          `"}}) {
+          `"}},orderBy: publishedAt_ASC) {
     email
     id
     profileImage

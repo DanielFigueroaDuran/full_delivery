@@ -40,7 +40,7 @@ const Header = () => {
                     width={70}
                     height={70}
                     priority
-                    className='rounded-lg' />
+                    className='rounded-lg w-[70px] h-[70px]' />
                 <div className="text-lg font-semibold">
                     <p><span className='text-primary' >Delivery</span> Full</p>
                 </div>
