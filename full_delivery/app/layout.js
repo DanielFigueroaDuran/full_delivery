@@ -24,18 +24,6 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          {/* <header className="flex justify-between">
-            <h1>Clover Corp</h1>
-        
-            <UserButton afterSignOutUrl="/" />
-          </header> */}
-          {/* <main className="flex justify-center items-center py-10"> */}
-          {/* <SignedOut>
-              <SignIn routing="hash" />
-            </SignedOut> */}
-          {/* <SignedIn></SignedIn> */}
-          {/* </main> */}
-
           <Provider>{children}</Provider>
         </body>
       </html>

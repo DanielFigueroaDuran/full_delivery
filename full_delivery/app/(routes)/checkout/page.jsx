@@ -1,12 +1,14 @@
 "use client"
 import { CartUpdateContext } from '@/app/_context/CartUpdateContext';
-import { createNewOrder, getUserCart } from '@/app/_utils/GlobalApi';
+import { createNewOrder, getUserCart, updateOrderToAddOrderItems } from '@/app/_utils/GlobalApi';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useUser } from '@clerk/nextjs';
-import { ArrowBigRight } from 'lucide-react';
-import { useSearchParams } from 'next/navigation'
+import { PayPalButtons } from '@paypal/react-paypal-js';
+import { ArrowBigRight, Loader } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useContext, useEffect, useState } from 'react'
+import { toast } from 'sonner';
 
 const Checkout = () => {
     const { updateCart, setUpdateCart } = useContext(CartUpdateContext);
@@ -22,6 +24,8 @@ const Checkout = () => {
     const [phone, setPhone] = useState();
     const [zip, setZip] = useState();
     const [address, setAddress] = useState();
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         // console.log(params.get('restaurant'))
@@ -47,7 +51,7 @@ const Checkout = () => {
     }
 
     const addToOrder = () => {
-
+        setIsLoading(true);
         const data = {
             email: user?.primaryEmailAddress?.emailAddress,
             orderAmount: total,
@@ -58,10 +62,26 @@ const Checkout = () => {
             zipCode: zip
         }
         createNewOrder(data).then(resp => {
-            console.log(resp?.createOrder?.id)
+            // console.log(resp?.createOrder?.id);
+            const resultId = resp?.createOrder?.id;
 
-        })
-    }
+            if (resultId) {
+                cart.forEach((item) => {
+                    updateOrderToAddOrderItems(item.producName, item.price, resultId, user?.primaryEmailAddress?.emailAddress).then(result => {
+                        // console.log(result);
+                        setIsLoading(false);
+                        toast('Order Created Successfully!');
+                        setUpdateCart(!updateCart);
+                        router.replace('/confirmation');
+                    }, (error) => {
+                        setIsLoading(false);
+                    });
+                });
+            }
+        }, (error) => {
+            setIsLoading(false);
+        });
+    };
 
     return (
         <div className=''>
@@ -95,9 +115,27 @@ const Checkout = () => {
                             Payment <ArrowBigRight />
                         </Button> */}
 
-                        <Button onClick={() => addToOrder()}>
-                            Make Payment
-                        </Button>
+                        {/* <Button onClick={() => addToOrder()}>
+                            {isloading ? <Loader className='animate-spin' /> : '  Make Payment'}
+                        </Button> */}
+                        {total > 5 && <PayPalButtons
+                            disabled={!(username && email && address && zip) || isLoading}
+                            style={{ layout: "horizontal" }}
+                            onApprove={addToOrder}
+                            createOrder={(data, actions) => {
+                                return actions.order.create({
+                                    purchase_units: [
+                                        {
+                                            amount: {
+                                                value: total.toFixed(2),
+                                                currency_code: 'USD'
+                                            }
+                                        }
+                                    ]
+                                })
+                            }}
+                        />
+                        }
                     </div>
                 </div>
             </div>

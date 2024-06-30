@@ -441,3 +441,52 @@ export const createNewOrder = async (data) => {
     console.error("Error fetching data from Hygraph:", error);
   }
 };
+
+export const updateOrderToAddOrderItems = async (name, price, id, email) => {
+  //console.log(data);
+  try {
+    const response = await fetch(MASTER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query:
+          `
+          mutation UpdateOrderWithDetail {
+  updateOrder(
+    data: {orderDetail: {create: {OrderItem:
+    {data: {name: "` +
+          name +
+          `", price: ` +
+          price +
+          `}}}}}
+    where: {id: "` +
+          id +
+          `"}
+  ) {
+    id
+  }
+     publishManyOrders(to: PUBLISHED) {
+    count
+  }
+
+  deleteManyUserCarts(where: {email:"` +
+          email +
+          `"}) {
+    count
+  }
+
+}
+   `,
+      }),
+    });
+
+    const results = await response.json();
+    const result = results.data;
+    //console.log(result);
+    return result;
+  } catch (error) {
+    console.error("Error fetching data from Hygraph:", error);
+  }
+};
