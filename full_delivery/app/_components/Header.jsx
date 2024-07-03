@@ -5,7 +5,7 @@ import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs';
 import { Search, ShoppingCart } from 'lucide-react';
 import Image from "next/image";
 import { CartUpdateContext } from '../_context/CartUpdateContext';
-import { getUserCart } from '../_utils/GlobalApi';
+import { getUserCart, getlocalStorage } from '../_utils/GlobalApi';
 import {
     Popover,
     PopoverContent,
@@ -16,13 +16,19 @@ import Cart from './Cart';
 const Header = () => {
     const { user, isSignedIn } = useUser();
     const { updateCart, setUpdateCart } = useContext(CartUpdateContext);
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState(getlocalStorage());
 
+    // console.log(cart)
 
     useEffect(() => {
         // console.log("Execute MEEEEEEEEEEEEEEEEE")
         user && getUserCarts();
     }, [updateCart && user]);
+
+    useEffect(() => {
+        // console.log("Execute MEEEEEEEEEEEEEEEEE")
+        localStorage.setItem("product", JSON.stringify(cart));
+    }, [cart]);
 
     const getUserCarts = () => {
         getUserCart(user?.primaryEmailAddress?.emailAddress).then(resp => {

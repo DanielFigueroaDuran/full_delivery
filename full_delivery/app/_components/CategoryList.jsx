@@ -38,7 +38,7 @@ const CategoryList = () => {
     const ScrollLeghtHandler = () => {
         if (listRef.current) {
             listRef.current.scrollBy({
-                right: -100,
+                left: -200,
                 behavior: 'smooth'
             })
         }
@@ -48,7 +48,7 @@ const CategoryList = () => {
         <div className="mt-10 relative">
 
             <ArrowLeftCircle className="absolute -left-10 top-9 bg-gray-500 rounded-full text-white h-8 w-8 cursor-pointer"
-                onClick={() => ScrollRightHandler()} />
+                onClick={() => ScrollLeghtHandler()} />
 
             <div className="flex gap-4 overflow-auto scrollbar-hide" ref={listRef}>
                 {

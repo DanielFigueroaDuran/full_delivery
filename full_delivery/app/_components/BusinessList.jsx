@@ -38,6 +38,7 @@ const BusinessList = () => {
                 {!isLoading
                     ?
                     businessList.map((restaurants, index) => (
+                        //console.log(restaurants)
                         <BussinessItem key={index} business={restaurants} />
                     ))
                     :

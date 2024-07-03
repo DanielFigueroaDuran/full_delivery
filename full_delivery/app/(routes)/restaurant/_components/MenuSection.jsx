@@ -13,7 +13,7 @@ const MenuSection = ({ restaurant }) => {
     const { user } = useUser();
     const { updateCart, setUpdateCart } = useContext(CartUpdateContext);
 
-    //console.log(updateCart)
+    //console.log(menuItemList)
     // console.log(restaurant?.menu[0].cate)
 
     useEffect(() => {
@@ -28,10 +28,10 @@ const MenuSection = ({ restaurant }) => {
     }
 
     const handleAddToCart = (item) => {
-        //console.log(item);
+        //console.log('Item', item);
 
         const data = {
-            // email: item?.email,
+            email: item?.email,
             email: user?.primaryEmailAddress?.emailAddress,
             name: item?.name,
             description: item?.description,

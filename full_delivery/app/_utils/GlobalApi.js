@@ -490,3 +490,12 @@ export const updateOrderToAddOrderItems = async (name, price, id, email) => {
     console.error("Error fetching data from Hygraph:", error);
   }
 };
+
+export const getlocalStorage = () => {
+  const data = localStorage.getItem("product");
+  if (data) {
+    return JSON.parse(data);
+  } else {
+    return [];
+  }
+};

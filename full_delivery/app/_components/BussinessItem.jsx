@@ -5,6 +5,7 @@ import { calculateRating } from "../_utils/GlobalApi";
 
 
 const BussinessItem = ({ business }) => {
+    //console.log(business)
 
     //console.log(business.categories[0].name)
 
