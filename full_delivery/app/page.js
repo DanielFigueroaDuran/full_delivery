@@ -1,13 +1,15 @@
 import CategoryList from "./_components/CategoryList";
 import BusinessList from "./_components/BusinessList";
-import EmailPrueba from "./_components/EmailPrueba";
+import ContactForm from "./pages/ContactForm";
+import RenvioEmail from "./pages/RenvioEmail";
 
 export default function Home() {
   return (
     <div>
       <CategoryList />
       <BusinessList />
-      <EmailPrueba />
+      {/* <ContactForm /> */}
+      <RenvioEmail />
     </div>
   );
 }
