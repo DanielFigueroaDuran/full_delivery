@@ -12,6 +12,15 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import Cart from './Cart';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 
 const Header = () => {
     const { user, isSignedIn } = useUser();
@@ -74,7 +83,25 @@ const Header = () => {
                         </PopoverContent>
                     </Popover>
 
-                    <UserButton />
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>
+                            <Image
+                                src={user?.imageUrl}
+                                alt='user'
+                                width={35}
+                                height={35}
+                                className='w-[35px] h-[35px] rounded-full'
+                            />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>Profile</DropdownMenuItem>
+                            <DropdownMenuItem>My Order</DropdownMenuItem>
+                            <DropdownMenuItem>Logout</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                    {/* <UserButton /> */}
                 </div>
                 :
                 <div className='flex gap-5'>

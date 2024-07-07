@@ -41,7 +41,6 @@ const ReviewList = ({ reviewList }) => {
                             key={index}
                             className='h-[100px] w-full bg-slate-200 animate-pulse rounded-lg'
                         >
-
                         </div>
                     ))
             }

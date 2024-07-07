@@ -138,9 +138,9 @@ const Checkout = () => {
                             Payment <ArrowBigRight />
                         </Button> */}
 
-                        <Button onClick={() => sendEmail()}>
+                        {/* <Button onClick={() => sendEmail()}>
                             {isLoading ? <Loader className='animate-spin' /> : '  Make Payment'}
-                        </Button>
+                        </Button> */}
 
                         {total > 5 && <PayPalButtons
                             disabled={!(username && email && address && zip) || isLoading}
