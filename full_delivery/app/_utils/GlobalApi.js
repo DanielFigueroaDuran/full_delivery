@@ -312,7 +312,7 @@ export const deleteCartFromItem = async (id) => {
 };
 
 export const addNewReview = async (data) => {
-  //console.log(data.email);
+  //console.log(data.userName);
   try {
     const response = await fetch(MASTER_URL, {
       method: "POST",
@@ -363,7 +363,7 @@ export const addNewReview = async (data) => {
 };
 
 export const getRestaurantReviews = async (slug) => {
-  console.log(slug);
+  // console.log(slug);
   try {
     const response = await fetch(MASTER_URL, {
       method: "POST",
@@ -383,6 +383,7 @@ export const getRestaurantReviews = async (slug) => {
     publishedAt
     userName
     star
+    reviewText
   }
 }
    `,
@@ -391,7 +392,7 @@ export const getRestaurantReviews = async (slug) => {
 
     const data = await response.json();
     const result = data.data;
-    // console.log(data);
+    // console.log(result);
     return result;
   } catch (error) {
     console.error("Error fetching data from Hygraph:", error);

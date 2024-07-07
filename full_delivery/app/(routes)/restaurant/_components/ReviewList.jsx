@@ -5,10 +5,12 @@ import moment from 'moment'
 
 
 const ReviewList = ({ reviewList }) => {
+    //console.log(reviewList)
     return (
         <div className='flex flex-col gap-5'>
             {
-                reviewList ? reviewList.map((review, index) => (
+                reviewList ? reviewList?.map((review, index) => (
+                    //console.log(review.reviewText)
                     <div
                         key={index}
                         className='flex gap-5 items-center border rounded-lg p-5'
@@ -20,7 +22,7 @@ const ReviewList = ({ reviewList }) => {
                             height={50}
                             className='rounded-full w-[50px] h-[50px]'
                         />
-                        <div className="">
+                        <div>
                             <h2 className="">{review.reviewText}</h2>
                             <ReactRating
                                 style={{ maxWidth: 100 }}
