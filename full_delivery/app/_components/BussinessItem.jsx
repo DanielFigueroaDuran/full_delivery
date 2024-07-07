@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link";
 import React from "react";
-import { calculateRating } from "../_utils/GlobalApi";
+//import { calculateRating } from "../_utils/GlobalApi";
 
 
 const BussinessItem = ({ business }) => {

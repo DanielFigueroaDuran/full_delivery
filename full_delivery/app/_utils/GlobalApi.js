@@ -7,14 +7,14 @@ const MASTER_URL = process.env.NEXT_PUBLIC_BACKEDN_API_URL;
 //  * @returns
 //  */
 
-export const getlocalStorage = () => {
-  const data = localStorage.getItem("product");
-  if (data) {
-    return JSON.parse(data);
-  } else {
-    return [];
-  }
-};
+// export const getlocalStorage = () => {
+//   const data = localStorage.getItem("product");
+//   if (data) {
+//     return JSON.parse(data);
+//   } else {
+//     return [];
+//   }
+// };
 
 export const getCategory = async () => {
   try {
@@ -435,7 +435,8 @@ export const createNewOrder = async (data) => {
           data.zipCode +
           `"
     }
-  ) {
+  )
+    {
     id
   }
 }

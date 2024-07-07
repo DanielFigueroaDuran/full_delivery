@@ -26,7 +26,9 @@ import Link from 'next/link';
 const Header = () => {
     const { user, isSignedIn } = useUser();
     const { updateCart, setUpdateCart } = useContext(CartUpdateContext);
-    const [cart, setCart] = useState(getlocalStorage());
+    // const [cart, setCart] = useState(getlocalStorage());
+    const [cart, setCart] = useState([]);
+
 
     // console.log(cart)
 

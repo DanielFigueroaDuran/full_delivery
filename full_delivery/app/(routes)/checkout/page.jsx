@@ -62,7 +62,7 @@ const Checkout = () => {
             zipCode: zip
         }
         createNewOrder(data).then(resp => {
-            // console.log(resp?.createOrder?.id);
+            console.log(resp);
             const resultId = resp?.createOrder?.id;
 
             if (resultId) {
@@ -127,16 +127,20 @@ const Checkout = () => {
                 <div className="mx-10 border">
                     <h2 className="p-3 bg-gray-200 font-bold text-center">Total Cart ({cart?.length})</h2>
                     <div className="p-4 flex flex-col gap-4">
-                        <h2 className="font-bold flex justify-between">Sub total : <span>{subTotal}€</span></h2>
+                        <h2 className="font-bold flex justify-between">Sub total : <span>{subTotal}$</span></h2>
                         <hr />
-                        <h2 className="flex justify-between">Delivery : <span>{deliveryAmount}€</span></h2>
-                        <h2 className="flex justify-between">Iva (21%) : <span>{ivaAmount.toFixed(2)}€</span></h2>
+                        <h2 className="flex justify-between">Delivery : <span>{deliveryAmount}$</span></h2>
+                        <h2 className="flex justify-between">Iva (21%) : <span>{ivaAmount.toFixed(2)}$</span></h2>
                         <hr />
-                        <h2 className="font-bold flex justify-between"> Total : <span>{total.toFixed(2)}€</span></h2>
+                        <h2 className="font-bold flex justify-between"> Total : <span>{total.toFixed(2)}$</span></h2>
 
                         {/* <Button onClick={() => onApprove({ paymentId: 123 })}>
                             Payment <ArrowBigRight />
                         </Button> */}
+
+                        <Button onClick={() => addToOrder()}>
+                            Make Payment
+                        </Button>
 
                         {/* <Button onClick={() => sendEmail()}>
                             {isLoading ? <Loader className='animate-spin' /> : '  Make Payment'}

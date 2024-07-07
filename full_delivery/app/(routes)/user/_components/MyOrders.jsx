@@ -45,13 +45,14 @@ const MyOrders = () => {
                                 <AccordionContent>
                                     {console.log(order)}
                                     {order?.orderDetail?.map((item, index) => (
-                                        <div
-                                            key={index}
-                                            className="flex justify-between"
-                                        >
-                                            <h2 className="">{item.name}</h2>
-                                            <h2 className="">{item.price}</h2>
-                                        </div>
+                                        console.log(item)
+                                        // <div
+                                        //     key={index}
+                                        //     className="flex justify-between"
+                                        // >
+                                        //     <h2 className="">{item.name}</h2>
+                                        //     <h2 className="">{item.price}</h2>
+                                        // </div>
                                     ))}
                                 </AccordionContent>
                             </AccordionItem>

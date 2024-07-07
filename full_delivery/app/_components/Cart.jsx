@@ -53,7 +53,7 @@ const Cart = ({ cart }) => {
                                 <h2 className="text-sm">{item?.productName}</h2>
                             </div>
                             <h2 className="font-bold flex gap-2 items-center">
-                                ${item.price}
+                                {item.price} $
                                 <X className='h-4 w-4 text-red-500'
                                     onClick={() => RemoveItemFromCart(item.id)}
                                 />
@@ -67,7 +67,7 @@ const Cart = ({ cart }) => {
                     className='w-full'
                 >
                     <Button className="w-full">
-                        Checkout €{calculateCartAmount()}
+                        Checkout {calculateCartAmount()} $
                     </Button>
                 </Link>
 

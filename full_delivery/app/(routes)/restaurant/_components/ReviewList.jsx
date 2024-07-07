@@ -22,13 +22,14 @@ const ReviewList = ({ reviewList }) => {
                             height={50}
                             className='rounded-full w-[50px] h-[50px]'
                         />
-                        <div>
-                            <h2 className="">{review.reviewText}</h2>
+                        <div className='space-y-2'>
                             <ReactRating
                                 style={{ maxWidth: 100 }}
                                 value={review.star}
                                 isDisabled={true}
                             />
+                            <h2 className="">{review.reviewText}</h2>
+
                             <h2 className="text-sm">
                                 <span className='font-bold'>
                                     {review.userName}
