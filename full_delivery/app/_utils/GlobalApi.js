@@ -7,6 +7,15 @@ const MASTER_URL = process.env.NEXT_PUBLIC_BACKEDN_API_URL;
 //  * @returns
 //  */
 
+export const getlocalStorage = () => {
+  const data = localStorage.getItem("product");
+  if (data) {
+    return JSON.parse(data);
+  } else {
+    return [];
+  }
+};
+
 export const getCategory = async () => {
   try {
     const response = await fetch(MASTER_URL, {
@@ -491,11 +500,48 @@ export const updateOrderToAddOrderItems = async (name, price, id, email) => {
   }
 };
 
-export const getlocalStorage = () => {
-  const data = localStorage.getItem("product");
-  if (data) {
-    return JSON.parse(data);
-  } else {
-    return [];
+export const getUsersOrders = async (email) => {
+  //console.log(data);
+  try {
+    const response = await fetch(MASTER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query:
+          `
+          query UserOrders {
+  orders(where: {email: "` +
+          email +
+          `"}) {
+    address
+    createdAt
+    email
+    id
+    orderAmount
+    orderDetail {
+      ... on OrderItem {
+        id
+        name
+        price
+      }
+    }
+    phone
+    restaurantName
+    userName
+    zipCode
+  }
+}
+   `,
+      }),
+    });
+
+    const data = await response.json();
+    const result = data.data;
+    //console.log(result);
+    return result;
+  } catch (error) {
+    console.error("Error fetching data from Hygraph:", error);
   }
 };

@@ -1,7 +1,7 @@
 "use client"
 import React, { useContext, useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button';
-import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs';
+import { SignInButton, SignUpButton, UserButton, UserProfile, useUser } from '@clerk/nextjs';
 import { Search, ShoppingCart } from 'lucide-react';
 import Image from "next/image";
 import { CartUpdateContext } from '../_context/CartUpdateContext';
@@ -20,6 +20,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import Link from 'next/link';
 
 
 const Header = () => {
@@ -96,7 +97,9 @@ const Header = () => {
                         <DropdownMenuContent>
                             <DropdownMenuLabel>My Account</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>Profile</DropdownMenuItem>
+                            {/* <DropdownMenuItem> <UserProfile path='/user' />Profile</DropdownMenuItem> */}
+
+                            <Link href={'/user'}><DropdownMenuItem>Profile</DropdownMenuItem></Link>
                             <DropdownMenuItem>My Order</DropdownMenuItem>
                             <DropdownMenuItem>Logout</DropdownMenuItem>
                         </DropdownMenuContent>
