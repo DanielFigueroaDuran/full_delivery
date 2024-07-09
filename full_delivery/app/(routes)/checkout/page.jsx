@@ -62,21 +62,22 @@ const Checkout = () => {
             zipCode: zip
         }
         createNewOrder(data).then(resp => {
-            console.log(resp);
             const resultId = resp?.createOrder?.id;
+            //console.log(cart);
 
             if (resultId) {
                 cart.forEach((item) => {
-                    updateOrderToAddOrderItems(item.producName, item.price, resultId, user?.primaryEmailAddress?.emailAddress).then(result => {
-                        // console.log(result);
-                        setIsLoading(false);
-                        toast('Order Created Successfully!');
-                        setUpdateCart(!updateCart);
-                        sendEmail();
-                        router.replace('/confirmation');
-                    }, (error) => {
-                        setIsLoading(false);
-                    });
+                    updateOrderToAddOrderItems(item.productName, item.price, resultId,
+                        user?.primaryEmailAddress?.emailAddress).then(result => {
+                            // console.log(item.productName);
+                            setIsLoading(false);
+                            toast('Order Created Successfully!');
+                            setUpdateCart(!updateCart);
+                            sendEmail();
+                            router.replace('/confirmation');
+                        }, (error) => {
+                            setIsLoading(false);
+                        });
                 });
             }
         }, (error) => {
@@ -139,7 +140,7 @@ const Checkout = () => {
                         </Button> */}
 
                         <Button onClick={() => addToOrder()}>
-                            Make Payment
+                            {isLoading ? <Loader className='animate-spin' /> : 'Make Payment'}
                         </Button>
 
                         {/* <Button onClick={() => sendEmail()}>

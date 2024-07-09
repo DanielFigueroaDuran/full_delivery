@@ -467,11 +467,14 @@ export const updateOrderToAddOrderItems = async (name, price, id, email) => {
           mutation UpdateOrderWithDetail {
   updateOrder(
     data: {orderDetail: {create: {OrderItem:
-    {data: {name: "` +
+    {data: {
+    name: "` +
           name +
-          `", price: ` +
+          `",
+    price: ` +
           price +
-          `}}}}}
+          `
+    }}}}}
     where: {id: "` +
           id +
           `"}
