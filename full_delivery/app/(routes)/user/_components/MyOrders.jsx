@@ -43,23 +43,23 @@ const MyOrders = () => {
                             <AccordionItem value="item-1">
                                 <AccordionTrigger><h2 className="text-primary text-sm underline">View Order Detail:</h2></AccordionTrigger>
                                 <AccordionContent>
+                                    <div className="flex flex-col gap-3">
+                                        {order?.orderDetail?.map((item, index) => (
 
-                                    {order?.orderDetail?.map((item, index) => (
-
-                                        <div
-                                            key={index}
-                                            className="flex justify-between"
-                                        >
-                                            <h2 className="">{item.name}$</h2>
-                                            <h2 className="">{item.price}$</h2>
-                                        </div>
-                                    ))}
-                                    <hr />
-                                    <h2 className="flex text-md font-bold items-center justify-between mt-2">
-                                        Total Order Amount (Including Iva + Delivery):
-                                        <span>{(order.orderAmount).toFixed(2)}$</span>
-                                    </h2>
-
+                                            <div
+                                                key={index}
+                                                className="flex justify-between"
+                                            >
+                                                <h2 className="">{item.name}$</h2>
+                                                <h2 className="">{item.price}$</h2>
+                                            </div>
+                                        ))}
+                                        <hr />
+                                        <h2 className="flex text-md font-bold  justify-between mt-2">
+                                            Total Order Amount (Including Iva):
+                                            <span>{(order.orderAmount).toFixed(2)}$</span>
+                                        </h2>
+                                    </div>
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>

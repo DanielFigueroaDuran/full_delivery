@@ -7,14 +7,38 @@ const MASTER_URL = process.env.NEXT_PUBLIC_BACKEDN_API_URL;
 //  * @returns
 //  */
 
-// export const getlocalStorage = () => {
-//   const data = localStorage.getItem("product");
-//   if (data) {
-//     return JSON.parse(data);
-//   } else {
-//     return [];
+export const getlocalStorage = () => {
+  const data = localStorage.getItem("orders");
+  if (data) {
+    return JSON.parse(data);
+  } else {
+    return [];
+  }
+};
+
+// const token = Cookies.get("token");
+
+// if (!token) {
+//   router.replace("/"); // Si no se encuentra el token, redirige a la página de inicio de sesión
+//   return;
+// }
+
+// // Validar el token haciendo una llamada a la API
+// const validateToken = async () => {
+//   try {
+//     const res = await fetch(MASTER_URL, {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     if (!res.ok) throw new Error("Token validation failed");
+//   } catch (error) {
+//     console.error(error);
+//     router.replace("/"); // Redirige al inicio de sesión si la validación del token falla
 //   }
 // };
+
+// validateToken();
 
 export const getCategory = async () => {
   try {
@@ -519,7 +543,9 @@ export const getUsersOrders = async (email) => {
           query UserOrders {
   orders(where: {email: "` +
           email +
-          `"}) {
+          `"},
+          orderBy: publishedAt_DESC
+          ) {
     address
     createdAt
     email

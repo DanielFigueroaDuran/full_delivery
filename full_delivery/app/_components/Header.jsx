@@ -1,7 +1,7 @@
 "use client"
 import React, { useContext, useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button';
-import { SignInButton, SignUpButton, UserButton, UserProfile, useUser } from '@clerk/nextjs';
+import { SignInButton, SignOutButton, SignUpButton, useAuth, UserButton, UserProfile, useSession, useUser } from '@clerk/nextjs';
 import { Search, ShoppingCart } from 'lucide-react';
 import Image from "next/image";
 import { CartUpdateContext } from '../_context/CartUpdateContext';
@@ -24,13 +24,35 @@ import Link from 'next/link';
 
 
 const Header = () => {
+
     const { user, isSignedIn } = useUser();
     const { updateCart, setUpdateCart } = useContext(CartUpdateContext);
-    // const [cart, setCart] = useState(getlocalStorage());
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState(getlocalStorage());
+    // const [cart, setCart] = useState([]);
 
 
     // console.log(cart)
+
+    // const handleLogin = async (e) => {
+    //     e.preventDefault()
+    //     try {
+    //         const response = await fetch('/sign-in', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({ username, password }),
+    //         })
+
+    //         if (!response.ok) throw new Error('Login failed')
+
+    //         const { token } = await response.json()
+    //         document.cookie = `token=${token}; path=/`
+    //         router.push('/protected')
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // }
 
     useEffect(() => {
         // console.log("Execute MEEEEEEEEEEEEEEEEE")
@@ -102,8 +124,9 @@ const Header = () => {
                             {/* <DropdownMenuItem> <UserProfile path='/user' />Profile</DropdownMenuItem> */}
 
                             <Link href={'/user'}><DropdownMenuItem>Profile</DropdownMenuItem></Link>
-                            <DropdownMenuItem>My Order</DropdownMenuItem>
-                            <DropdownMenuItem>Logout</DropdownMenuItem>
+                            <Link href={'/user#/my-orders'}><DropdownMenuItem>My Order</DropdownMenuItem></Link>
+                            <SignOutButton><DropdownMenuItem>Logout</DropdownMenuItem></SignOutButton>
+
                         </DropdownMenuContent>
                     </DropdownMenu>
                     {/* <UserButton /> */}
@@ -111,13 +134,12 @@ const Header = () => {
                 :
                 <div className='flex gap-5'>
                     <SignInButton mode='modal'>
-                        <Button variant="outline" >Login</Button>
+                        <Button variant="outline"  >Login</Button>
                     </SignInButton>
                     <SignUpButton mode='modal'>
                         <Button>Sign Up</Button>
                     </SignUpButton>
                 </div>
-
             }
         </div>
     )

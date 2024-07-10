@@ -9,7 +9,7 @@ export default function Home() {
       <CategoryList />
       <BusinessList />
       {/* <ContactForm /> */}
-      <RenvioEmail />
+      {/* <RenvioEmail /> */}
     </div>
   );
 }
